@@ -1,5 +1,4 @@
-FROSTILICUS SAVIOUR OF WEB APPLICATIONS
----------------------------------------
+#Frostilicus-lite
 
 [Namesake] (http://en.wikipedia.org/wiki/Lisa_the_Simpson)
 
@@ -63,13 +62,13 @@ The prerequisites you will require on the system are:
 Some of these may already be installed.
 
 Install all these fun things first:
-`apt-get install libffi-dev build-essential python-virtualenv python-pip libpython2.7`
+`apt-get install build-essential python-virtualenv python-pip libpython2.7`
 
 
 (packages might be named different on non-debian based systems)
 
 
-now, goto where you cloned frostilicus and start the virtualenv.
+now, go to where you cloned frostilicus and start the virtualenv.
 
 <pre>
 $ virtualenv env  #"env" can be whatever you want to call it.
@@ -83,7 +82,7 @@ Now once that's all done, you're ready to go.
 
 #### USE:
 
-`frostilicus.py [-v,--verbose] [-f,--freeze] <DIR>`
+`frostilicus-lite.py [-v,--verbose] [-f,--freeze] <DIR>`
 
 Frostilicus will recursively search and scan files in the given directory.
 Files modified in the last 24 hours will be scanned for malware.
