@@ -9,11 +9,9 @@ import re
 import argparse
 import hashlib
 from time import sleep
-from butter.fanotify import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument("directory", help="The directory to Scan.")
-parser.add_argument('-p','--passive', help="Enables Passive mode, waits for file changes/creations before scanning. Uses the FNOTIFY syscall", action="store_true") 
 parser.add_argument('-v','--verbose', help="Will run frostilicus verbosely.", action="store_true")
 parser.add_argument('-f','--freeze', help="Will chmod 000 files with a score of 10 or above", action="store_true")
 parser.add_argument('-d','--days', help="How many days to search for activity from, defaults to 1", default="1")
@@ -47,22 +45,6 @@ def find_mount(mount):
 	while not os.path.ismount(mount):
 		mount = os.path.dirname(mount)
 	return mount
-
-
-def scan_pasv():
-	"""
-		Scans files passively using the FANOTIFY syscall available in Linux Kernel 2.6.38 and above.
-	"""
-	mntpoint = find_mount(args.directory)
-	notifier = Fanotify(FAN_CLASS_NOTIF)
-	flags = FAN_CLOSE_WRITE
-	notifier.watch(FAN_MARK_MOUNT, flags, mntpoint)
-	
-	for event in notifier:
-		if event.filename.startswith(args.directory):
-			yield event.filename
-			#TODO: check compat with changing file descriptors
-
 
 def empty(fname):
 	"""
@@ -238,10 +220,7 @@ def SCAN_taintedfile(fname):
 
 def main():
 	while True:
-		if args.passive:
-			files = scan_pasv()
-		else:
-			files = scan_files()
+		files = scan_files()
 
 		for fname in files:
 			hash_get = hashlib.md5(open(fname).read()).hexdigest()
@@ -321,8 +300,7 @@ def main():
 				print "%s has score %d" % (fname, score)
 				print '==='
 		sleep(0.2)
-		if not args.passive:
-			break
+		break
 
 if __name__ == '__main__':
 	sys.exit(main())
