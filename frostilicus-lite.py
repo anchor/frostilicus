@@ -37,15 +37,6 @@ def scan_files():
 							print path
 	return matches
 
-def find_mount(mount):
-	"""
-		Finds the mountpoint of a given directory.
-	"""
-	mount = os.path.abspath(mount)
-	while not os.path.ismount(mount):
-		mount = os.path.dirname(mount)
-	return mount
-
 def empty(fname):
 	"""
 		Return True if file has something in it, returns false if empty
