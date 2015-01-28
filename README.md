@@ -5,22 +5,11 @@ FROSTILICUS SAVIOUR OF WEB APPLICATIONS
 
 ![Frostilicus!](http://yinette.beta.anchortrove.com/Xsp6T.jpg)
 
-Written by: Yinette of Anchor Systems, NOC Team, BeardPod section. "Maintaining the Standard"
-
-HUGE THANKS TO: Da_Blitz for the massive help with the basic teaching of how to write Python and for the awesome
-library which is used by this script.
-
-
-Frostilicus is no where near what i would call "complete" please be patient as I add more features and fix bugs.
-Please let me know of any issues you do find!
-
 Frostilicus is released under BSD License, so go nuts! (but tell me about what you're working on too)
 
 #### Requirements:
 
- - Linux kernel version 2.6.38+ or 3.x+ (for fanotify support)
  - Python 2.7+
- - cffi python library (and libffi-dev/libffi-devel package)
 
 covered in depth in installation
 
@@ -66,7 +55,6 @@ Frostilicus runs best in a virtualenv, however it's perfectly fine to run this o
 
 The prerequisites you will require on the system are:
 
- - libcffi-dev
  - python-virtualenv
  - python-pip
  - build-essential
@@ -87,27 +75,13 @@ now, goto where you cloned frostilicus and start the virtualenv.
 $ virtualenv env  #"env" can be whatever you want to call it.
 $ . env/bin/activate
 </pre>
-Now, inside the virtualenv:
-<pre>
-pip install argparse #this one might already be installed
-pip install cffi
-pip install butter
-</pre>
+Now, inside the virtualenv you can pip install required modules for frostilicus-lite.
 
 Now once that's all done, you're ready to go.
 
-`./frostilicus.py`
-
-##### Stand Alone
-
-Frostilicus can run stand alone without butter, however you'll need to modify the source a little.
-For stand alone, just remove the `import * from butter` in the top.
-
-I will eventually introduce a branch that will work by itself.
+`./frostilicus-lite.py`
 
 #### USE:
-
-##### ACTIVE MODE
 
 `frostilicus.py [-v,--verbose] [-f,--freeze] <DIR>`
 
@@ -115,13 +89,3 @@ Frostilicus will recursively search and scan files in the given directory.
 Files modified in the last 24 hours will be scanned for malware.
 
 Freeze mode will chmod 000 files that gain a score of 10+
-
-##### PASSIVE MODE
-
-`sudo frostilicus.py -p / --passive [-v,--verbose], [-f,--freeze] <DIR>`
-
-NOTE: Passive mode needs to be run as root for fanotify!
-
-Frostilicus will generate a watch on the mounted filesystem where the supplied directory lives,
-and will scan files in the directory if they are Created or Modified.
-
